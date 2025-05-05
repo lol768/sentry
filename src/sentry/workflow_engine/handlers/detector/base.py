@@ -15,13 +15,13 @@ from sentry.workflow_engine.types import DetectorGroupKey, DetectorPriorityLevel
 
 logger = logging.getLogger(__name__)
 
-PacketT = TypeVar("PacketT")
-EvidenceValueT = TypeVar("EvidenceValueT")
+DataPacketType = TypeVar("DataPacketType")
+DataPacketEvaluationType = TypeVar("DataPacketEvaluationType")
 
 
 @dataclass
-class EvidenceData(Generic[EvidenceValueT]):
-    value: EvidenceValueT
+class EvidenceData(Generic[DataPacketEvaluationType]):
+    value: DataPacketEvaluationType
     detector_id: int
     data_condition_ids: list[int]
 
@@ -82,7 +82,7 @@ class DetectorEvaluationResult:
     event_data: dict[str, Any] | None = None
 
 
-class DetectorHandler(abc.ABC, Generic[PacketT]):
+class DetectorHandler(abc.ABC, Generic[DataPacketType]):
     def __init__(self, detector: Detector):
         self.detector = detector
         if detector.workflow_condition_group_id is not None:
@@ -102,6 +102,6 @@ class DetectorHandler(abc.ABC, Generic[PacketT]):
 
     @abc.abstractmethod
     def evaluate(
-        self, data_packet: DataPacket[PacketT]
+        self, data_packet: DataPacket[DataPacketType]
     ) -> dict[DetectorGroupKey, DetectorEvaluationResult]:
         pass
