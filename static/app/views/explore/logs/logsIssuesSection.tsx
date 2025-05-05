@@ -88,6 +88,7 @@ export function LogsIssuesSection({
       <LogsPageParamsProvider
         analyticsPageSource={LogsAnalyticsPageSource.ISSUE_DETAILS}
         isTableFrozen
+        blockRowExpanding
         limitToTraceId={limitToTraceId}
       >
         <LogsSectionContent tableData={tableData} openDrawer={onOpenLogsDrawer} />
