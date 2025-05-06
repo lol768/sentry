@@ -173,7 +173,6 @@ def get_hint_for_frame(
         None if rust_hint is None else "in-app" if rust_hint.startswith("marked") else "contributes"
     )
     incoming_hint = frame_component.hint
-
     # TODO: We can switch this to `desired_hint_type == "in-app"` once we're only using split
     # enhancements. For now, we need to also include the case where `desired_hint_type` is None. (At
     # that point we can also change the type of the parameter to be a required string.)
